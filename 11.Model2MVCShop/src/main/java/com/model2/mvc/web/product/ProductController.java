@@ -61,7 +61,7 @@ public class ProductController {
 	
 	//@RequestMapping("/addProduct.do")
 	@RequestMapping( value="addProduct", method=RequestMethod.POST)
-	
+	/*
 		public class CommonController{
 		
 			private static final String FILE_SERVER_PATH = "/images/uploadFiles";
@@ -78,7 +78,7 @@ public class ProductController {
 			return "board/board";
 		}
 	}
-	
+	*/
 	public String addProduct(@ModelAttribute("product") Product product) throws Exception {
 		
 		System.out.println("/product/addProduct : POST");
