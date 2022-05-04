@@ -49,6 +49,8 @@ public class ProductController {
 	//@Value("#{commonProperties['pageSize'] ?: 2}")	 // 현재페이지에 아무 설정이 안되어 있다면 2개만 보이게 설정 
 	int pageSize;
 	
+	private  String FILE_SERVER_PATH= "C:\\workspace\\11.Model2MVCShop\\11.Model2MVCShop\\src\\main\\webapp\\images\\uploadFiles";
+	
 	//@RequestMapping("/addProductView.do")
 	//public String addProductView() throws Exception {
 	@RequestMapping( value="addProduct", method=RequestMethod.GET)
@@ -59,29 +61,22 @@ public class ProductController {
 		return "redirect:/product/addProductView.jsp";
 	}
 	
+			
 	//@RequestMapping("/addProduct.do")
 	@RequestMapping( value="addProduct", method=RequestMethod.POST)
-	/*
-		public class CommonController{
-		
-			private static final String FILE_SERVER_PATH = "/images/uploadFiles";
-
-		@RequestMapping("/upload")
-		public String upload(@RequestParam("uploadFile") MultipartFile file, ModelAndView mv, Model model) throws IllegalStateException, IOException {
+	public String addProduct(@ModelAttribute("product") Product product,
+				@RequestParam("uploadFile")  MultipartFile file, ModelAndView mv, Model model) throws Exception {
+		/*@RequestParam("uploadFile")  MultipartFile file, ModelAndView mv, Model model */
+		System.out.println("/product/addProduct : POST");
+					
 			if(!file.getOriginalFilename().isEmpty()) {
 				file.transferTo(new File(FILE_SERVER_PATH, file.getOriginalFilename()));
 				model.addAttribute("msg", "File uploaded successfully.");
 			}else {
 				model.addAttribute("msg", "Please select a valid mediaFile..");
 			}
-			
-			return "board/board";
-		}
-	}
-	*/
-	public String addProduct(@ModelAttribute("product") Product product) throws Exception {
 		
-		System.out.println("/product/addProduct : POST");
+		
 		
 		product.setManuDate(product.getManuDate().replace("-",""));
 		//	B/L

@@ -125,7 +125,7 @@ function resetData(){
    	
    		<h1 class="bg-primary text-center">상품등록</h1>
    		
-		<form class="form-horizontal">
+		<form class="form-horizontal" enctype="multipart/form-data">
 		
   
 	 <div class="form-group">
@@ -159,7 +159,8 @@ function resetData(){
    <div class="form-group">
     <label class="col-sm-offset-1 col-sm-3 control-label" for="formGroupInputSmall">상품이미지</label>
     <div class="col-sm-4">
-      <input class="form-control" type="file" name="uploadFile"  placeholder="상품이미지">
+       <input multiple="multiple" class="form-control" type="file" id ="uploadFile"  name="uploadFile"  placeholder="상품이미지">
+  <!--   <input multiple="multiple" class="form-control" type="file" id ="fileName"  name="fileName"  placeholder="상품이미지">-->
     </div>
   </div>
 
