@@ -98,7 +98,7 @@ function fncAddProduct(){
 //	document.detailForm.action='/addProduct.do';
 //	document.detailForm.action='/product/addProduct';
 //	document.detailForm.submit();
-	$("form").attr("method", "POST").attr("action", "/product/addProduct").submit();
+	$("form").attr("method", "POST").attr("action", "/product/addProduct").attr("enctype", "multipart/form-data").submit();
 }
 
 

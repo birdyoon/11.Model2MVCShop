@@ -77,7 +77,7 @@ public class ProductController {
 			}
 		
 		
-		
+		product.setFileName(file.getOriginalFilename());
 		product.setManuDate(product.getManuDate().replace("-",""));
 		//	B/L
 		productService.addProduct(product);

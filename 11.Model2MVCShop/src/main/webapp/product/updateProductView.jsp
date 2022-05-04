@@ -179,7 +179,8 @@ $(function() {
 <div class="form-group">
 		    <label for="fileName" class="col-sm-offset-1 col-sm-3 control-label">상품이미지</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="fileName" name="fileName" value="${product.fileName }" placeholder="상품이미지">
+		    <img src="/images/uploadFiles/${product.fileName }" width="300" height="300" align="absmiddle"/>
+		      <input type="file" class="form-control" id="fileName" name="fileName" value="${product.fileName }" placeholder="상품이미지">
 		    </div>
 		  </div>			  
 		  

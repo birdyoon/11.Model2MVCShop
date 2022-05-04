@@ -93,7 +93,7 @@
 		
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2 "><strong>상품이미지</strong></div>
-			<div class="col-xs-8 col-md-4">${product.fileName}</div>
+			<img src="/images/uploadFiles/${product.fileName }" width="300" height="300" align="absmiddle"/>
 		</div>
 		
 		<hr/>
