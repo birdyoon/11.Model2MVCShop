@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
@@ -62,14 +64,14 @@ public class UserController {
 	
 
 	@RequestMapping( value="getUser", method=RequestMethod.GET )
-	public String getUser( @RequestParam("userId") String userId , Model model ) throws Exception {
+	public String getUser( @RequestParam("userId") String userId , Model model, @RequestParam String code ) throws Exception {
 		
 		System.out.println("/user/getUser : GET");
 		//Business Logic
 		User user = userService.getUser(userId);
 		// Model °ú View ¿¬°á
 		model.addAttribute("user", user);
-		
+		System.out.println(code);
 		return "forward:/user/getUser.jsp";
 	}
 	
