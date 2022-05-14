@@ -7,8 +7,8 @@
 
 <!DOCTYPE html>
 
-<html lang="ko">
-	
+<html lang="ko" >
+	    
 <head>
 	<meta charset="EUC-KR">
 	
