@@ -49,7 +49,12 @@
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
         <h1>SK엔카</h1>
-      <!--   <p>J2SE , DBMS ,JDBC , Servlet & JSP, Java Framework , HTML5 , UI Framework 학습 후 Mini-Project 진행</p> -->
+        
+    <!--  	<a class="p-2" href="https://kauth.kakao.com/oauth/logout?client_id=07cd433423b8401d52fda5136624e099&logout_redirect_uri=${YOUR_LOGOUT_REDIRECT_URI}">
+				
+					<img src="/images/kakao_login_medium_narrow.png" style="height:40px">
+				</a>
+    -->	
      </div>
      
      	<div class="col-md-6">

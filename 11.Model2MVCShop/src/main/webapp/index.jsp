@@ -157,7 +157,7 @@
 			  		</div>
 			  	
 			  	</div>
-			  	
+	<!--   	
 			  	    <a href="#0" id="kakaoLogin"><img src="/images/kakao login.png" alt="카카오계정 로그인" style="height: 100px;"/></a>
 
 				    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
@@ -191,6 +191,7 @@
 				        const login = document.querySelector('#kakaoLogin');
 				        login.addEventListener('click', kakaoLogin);
 				    </script>
+		 -->		    
 	        </div>
 	   	 	<!--  Main end /////////////////////////////////////-->   		
 	 	 	

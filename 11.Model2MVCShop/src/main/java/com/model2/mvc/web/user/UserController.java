@@ -10,12 +10,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
@@ -43,6 +41,13 @@ public class UserController {
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 	
+	@RequestMapping( value="addKakao", method=RequestMethod.GET )
+	public String addKakao() throws Exception{
+	
+		System.out.println("/user/addKakao : GET");
+		
+		return "redirect:/user/addkakao.jsp";
+	}
 	
 	@RequestMapping( value="addUser", method=RequestMethod.GET )
 	public String addUser() throws Exception{
@@ -64,14 +69,14 @@ public class UserController {
 	
 
 	@RequestMapping( value="getUser", method=RequestMethod.GET )
-	public String getUser( @RequestParam("userId") String userId , Model model, @RequestParam String code ) throws Exception {
+	public String getUser( @RequestParam("userId") String userId , Model model ) throws Exception {
 		
 		System.out.println("/user/getUser : GET");
 		//Business Logic
 		User user = userService.getUser(userId);
 		// Model °ú View ¿¬°á
 		model.addAttribute("user", user);
-		System.out.println(code);
+		
 		return "forward:/user/getUser.jsp";
 	}
 	
@@ -114,7 +119,7 @@ public class UserController {
 	
 	@RequestMapping( value="login", method=RequestMethod.POST )
 	public String login(@ModelAttribute("user") User user , HttpSession session ) throws Exception{
-		
+	//	, @RequestParam String code
 		System.out.println("/user/login : POST");
 		//Business Logic
 		User dbUser=userService.getUser(user.getUserId());
@@ -122,7 +127,7 @@ public class UserController {
 		if( user.getPassword().equals(dbUser.getPassword())){
 			session.setAttribute("user", dbUser);
 		}
-		
+//		System.out.println("#####"+code);
 		return "redirect:/index.jsp";
 	}
 		
@@ -175,4 +180,9 @@ public class UserController {
 		
 		return "forward:/user/listUser.jsp";
 	}
+	
+	
+	
+
+	
 }
