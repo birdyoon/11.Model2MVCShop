@@ -57,6 +57,11 @@
     -->	
      </div>
      
+     <a class="p-2" href="https://kauth.kakao.com/oauth/logout?client_id=07cd433423b8401d52fda5136624e099&logout_redirect_uri=http://localhost:8080/user/logout">
+				
+					<img src="/images/41566967-로그-아웃-버튼.webp" style="height:40px">
+				</a>
+				
      	<div class="col-md-6">
 					<img src="/images/001486597021169.jpg" class="img-rounded" width="100%" />
 			</div>

@@ -1,5 +1,5 @@
 package com.model2.mvc.web.kakao;
-
+/*
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,4 +34,4 @@ public class KakaoController {
 			
 	    	}
 }
-
+*/

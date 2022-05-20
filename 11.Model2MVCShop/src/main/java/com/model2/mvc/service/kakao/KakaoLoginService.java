@@ -16,7 +16,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 
-
+/*
 @Service
 public class KakaoLoginService {
 	public String getAccessToken (String authorize_code) {
@@ -97,7 +97,8 @@ public class KakaoLoginService {
 
 			String line = "";
 			String result = "";
-
+	//		String password = "";
+			
 			while ((line = br.readLine()) != null) {
 				result += line;
 			}
@@ -109,12 +110,13 @@ public class KakaoLoginService {
 			JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
-		//	String nickname = properties.getAsJsonObject().get("nickname").getAsString();
+			String nickname = properties.getAsJsonObject().get("nickname").getAsString();
 			String email = kakao_account.getAsJsonObject().get("email").getAsString();
 
-		//	userInfo.put("nickname", nickname);
+			System.out.println(email);
+			userInfo.put("nickname", nickname);
 			userInfo.put("email", email);
-
+	//		userInfo.put("password", 1111);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -122,3 +124,4 @@ public class KakaoLoginService {
 	}
 	
 }
+*/
