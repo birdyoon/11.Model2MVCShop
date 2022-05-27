@@ -26,9 +26,93 @@
         }
     </style>
     
+    <style>
+		.id_ok{
+		color:#008000;
+		display: none;
+		}
+
+		.id_already{
+		color:#6A82FB; 
+		display: none;
+		}
+	</style>
+	
      <!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
 	
+	function checkId(){
+        var userId = $('#userId').val(); //id값이 "id"인 입력란의 값을 저장
+        console.log(userId);
+        
+        $.ajax({
+            url:'./json/checkId', //Controller에서 요청 받을 주소
+            type:'post', //POST 방식으로 전달
+            data:{userId:userId},
+            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+                if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+                    $('.id_ok').css("display","inline-block"); 
+                    $('.id_already').css("display", "none");
+                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
+                    $('.id_already').css("display","inline-block");
+                    $('.id_ok').css("display", "none");
+                    alert("아이디를 다시 입력해주세요");
+                    $('#userid').val('');
+                }
+            },
+            error:function(){
+                alert("에러입니다");
+            }
+        });
+        };
+	
+        
+        
+        
+        
+	
+        function fn_sendEmail_Ajax() {
+    		var userEmail = $("#email").val().trim();
+			
+    		if (userEmail == "" || userEmail == null) {
+    			flag_dupl_mail = false;
+    			alert("이메일 주소를 입력해야 합니다.");
+    			return;
+    		}
+    		if(flag_dupl_use_mail == false){
+    			flag_dupl_mail = false;
+    			$("#resultMailBox").html("이미 가입된 이메일 입니다").css('color', 'red');
+    			return;
+    		}
+    		
+    		var form = {
+    				email : userEmail
+//    	 			joinCode : inputCode
+
+    			}
+		
+    		$.ajax({
+    			url : "/checkEmailAjax.do",
+    			data : JSON.stringify(form),
+    			dataType : "JSON",
+    			type : "post",
+    			contentType : "application/json; charset=utf-8;",
+    			async : false,
+    			success : function(data) {
+    				alert("입력하신 이메일 주소에서 발급된 코드를 확인하세요.");
+
+    				resultCode = data.joinCode;
+
+    				$("#checkCodeDiv").show();
+
+    			},
+    			error : function() {
+    				alert("네트워크가 불안정합니다. 다시 시도해 주세요.222");
+    			}
+    		})
+
+    		
+        }
 		//============= "가입"  Event 연결 =============
 		 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
@@ -141,7 +225,7 @@
 	
 		 
 		//==>"ID중복확인" Event 처리 및 연결
-		 $(function() {
+	/*	 $(function() {
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			 $("button.btn.btn-info").on("click" , function() {
 				popWin 
@@ -151,7 +235,7 @@
 											"scrollbars=no,scrolling=no,menubar=no,resizable=no");
 			});
 		});	
-
+	*/
 		
 		 function findAddr(){
 				new daum.Postcode({
@@ -200,14 +284,22 @@
 		  <div class="form-group">
 		    <label for="userId" class="col-sm-offset-1 col-sm-3 control-label">아 이 디</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="userId" name="userId" placeholder="중복확인하세요"  readonly>
-		       <span id="helpBlock" class="help-block">
-		      	<strong class="text-danger">입력전 중복확인 부터..</strong>
-		      </span>
+		      <input type="text" class="form-control" id="userId" name="userId" oninput = "checkId()" >
+		      
+		      <span id="helpBlock" class="id_ok">사용 가능한 아이디입니다.</span>
+			  <span id="helpBlock" class="id_already">누군가 이 아이디를 사용하고 있어요.</span>
+			  
+			      
+		   <!--     <span id="helpBlock" class="help-block">
+		   				 <strong class="text-danger">입력전 중복확인 부터..</strong>
+		     		 </span>
+		   -->   
 		    </div>
-		    <div class="col-sm-3">
+		    
+	  <!--  <div class="col-sm-3">
 		      <button type="button" class="btn btn-info">중복확인</button>
 		    </div>
+	   -->    
 		  </div>
 		  
 		  <div class="form-group">
@@ -277,8 +369,19 @@
 		   <div class="form-group">
 		    <label for="ssn" class="col-sm-offset-1 col-sm-3 control-label">이메일</label>
 		    <div class="col-sm-4">
-		      <input type="text" class="form-control" id="email" name="email" placeholder="이메일">
+		      <input type="text" class="form-control" id="email" name="email" placeholder="이메일" />
 		    </div>
+		    <button type="button" class="btn btn-outline-primary" id="showDiv" onclick = "fn_sendEmail_Ajax()">
+				<i class="fa fa-search"></i>이메일 인증
+			</button>
+			
+		 	<div class="col-sm-4" style="display: none;" id="checkCodeDiv">
+     			 <input type="text" id="inputCode" style="width: 60%; display: inline;" placeholder="인증코드 입력" class="form-control"  />
+      		 	<button type="button" class="btn btn-outline-primary" onclick="fn_checkCode()">확인</button>
+    		</div>
+  			
+  			
+  		
 		  </div>
 		  
 		  <div class="form-group">

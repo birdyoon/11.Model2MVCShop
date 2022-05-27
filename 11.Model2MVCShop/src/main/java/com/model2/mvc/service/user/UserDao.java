@@ -1,6 +1,7 @@
 package com.model2.mvc.service.user;
 
 import java.util.List;
+import java.util.Map;
 
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.User;
@@ -11,7 +12,7 @@ public interface UserDao {
 	
 	// INSERT
 	public void addUser(User user) throws Exception ;
-
+	
 	// SELECT ONE
 	public User getUser(String userId) throws Exception ;
 
@@ -24,4 +25,6 @@ public interface UserDao {
 	// 게시판 Page 처리를 위한 전체Row(totalCount)  return
 	public int getTotalCount(Search search) throws Exception ;
 	
+	// id 중복체크
+	public int checkId(String userId) throws Exception;
 }

@@ -1,5 +1,6 @@
 package com.model2.mvc.web.user;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,14 +42,6 @@ public class UserController {
 	@Value("#{commonProperties['pageSize']}")
 	int pageSize;
 	
-	@RequestMapping( value="addKakao", method=RequestMethod.GET )
-	public String addKakao() throws Exception{
-	
-		System.out.println("/user/addKakao : GET");
-		
-		return "redirect:/user/addkakao.jsp";
-	}
-	
 	@RequestMapping( value="addUser", method=RequestMethod.GET )
 	public String addUser() throws Exception{
 	
@@ -67,6 +60,44 @@ public class UserController {
 		return "redirect:/user/loginView.jsp";
 	}
 	
+	@RequestMapping(value="/kakaoLogin", method=RequestMethod.GET)
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session) throws Exception {
+		
+			System.out.println("#########" + code);
+			String access_Token = userService.getAccessToken(code);
+			
+			HashMap<String, Object> userInfo = userService.getUserInfo(access_Token);
+			System.out.println("###access_Token#### : " + access_Token);
+			System.out.println("###nickname#### : " + userInfo.get("nickname"));
+			System.out.println("###email#### : " + userInfo.get("email"));
+			
+			String userE = (String)userInfo.get("email") ;
+			String userN = (String)userInfo.get("nickname") ;
+
+			System.out.println("/user/checkDuplication : POST");
+				
+			if(userService.checkDuplication(userE)==true) {  // id가 존재하지 않을때
+				User user = new User();
+				user.setUserId(userE);
+				user.setUserName(userN);
+				user.setPassword("1234");
+				System.out.println(user);
+				
+				userService.addUser(user);
+				System.out.println("end");
+							
+			}else {
+				
+				User user1 = userService.getUser(userE);
+				System.out.println(userE);
+				session.setAttribute("user", user1);
+			}
+			
+			return "redirect:/main.jsp";
+			
+	//		 * 404가 떠도 제일 중요한건 #########인증코드 가 잘 출력이 되는지가 중요하므로 너무 신경 안쓰셔도 됩니다.
+			
+	    	}
 
 	@RequestMapping( value="getUser", method=RequestMethod.GET )
 	public String getUser( @RequestParam("userId") String userId , Model model ) throws Exception {

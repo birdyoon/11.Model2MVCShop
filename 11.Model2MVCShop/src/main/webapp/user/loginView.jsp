@@ -124,7 +124,7 @@
 			
 				<a class="p-2" href="https://kauth.kakao.com/oauth/authorize?
 				client_id=07cd433423b8401d52fda5136624e099&
-				redirect_uri=http://localhost:8080/kakaoLogin
+				redirect_uri=http://localhost:8080/user/kakaoLogin
 				&response_type=code">
 				
 					<img src="/images/kakao_login_medium_narrow.png" style="height:40px">

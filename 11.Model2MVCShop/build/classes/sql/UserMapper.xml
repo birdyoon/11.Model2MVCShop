@@ -26,7 +26,7 @@
 		VALUES	 (	#{userId} , #{userName} , #{password} , 'user' , #{ssn:VARCHAR} , 
 							#{phone:VARCHAR} , #{addr:VARCHAR} , #{email:VARCHAR} , SYSDATE )
 	 </insert>
-	 
+	 	
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="getUser"	parameterType="string"	resultMap="userSelectMap">
 		SELECT
@@ -95,4 +95,11 @@
 						</if> ) countTable						
 	 </select>
 	 
+	 <!-- id 중복체크 -->
+	 <select id="checkId" parameterType="String" resultType="int">
+		SELECT COUNT(user_id)
+		FROM users
+		WHERE user_id= #{id}
+	</select>
+	
 </mapper>
