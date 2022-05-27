@@ -30,5 +30,19 @@ public interface UserService {
 	
 	// 회원 ID 중복 확인
 	public boolean checkDuplication(String userId) throws Exception;
+
+	// id 중복체크
+	public int checkId(String userId) throws Exception;
+	
+	// 이메일 인증
+			/** 메일 전송
+	     *  @param subject 제목
+	     *  @param text 내용
+	     *  @param from 보내는 메일 주소
+	     *  @param to 받는 메일 주소  **/
+	public boolean send(String subject, String text, String from, String to);
+
+	
+
 	
 }

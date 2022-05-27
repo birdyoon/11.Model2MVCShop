@@ -11,8 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonElement;
@@ -31,7 +36,9 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	@Qualifier("userDaoImpl")
 	private UserDao userDao;
-
+	JavaMailSender javaMailSender;
+	
+		
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
@@ -182,4 +189,44 @@ public class UserServiceImpl implements UserService{
 		}
 		return result;
 	}
+	
+	// id 중복체크
+	public int checkId(String userId) throws Exception {
+		int cnt = userDao.checkId(userId);
+		System.out.println("cnt: " + cnt);
+		return cnt;
+	}
+	
+	
+	
+	public void setJavaMailSender(JavaMailSender javaMailSender) {
+		System.out.println("들어오냐");
+		this.javaMailSender = javaMailSender;
+	}
+
+	
+	@Override
+	public boolean send(String subject, String text, String from, String to) {
+		System.out.println("send에 들어옴");
+		// javax.mail.internet.MimeMessage
+		MimeMessage message = javaMailSender.createMimeMessage();
+		System.out.println("message의 값 : " + message);
+
+		try {
+			// org.springframework.mail.javamail.MimeMessageHelper
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+			helper.setSubject(subject);
+			helper.setText(text, true);
+			helper.setFrom(from);
+			helper.setTo(to);
+
+			javaMailSender.send(message);
+			return true;
+
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 }

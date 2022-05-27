@@ -95,4 +95,11 @@
 						</if> ) countTable						
 	 </select>
 	 
+	 <!-- id 중복체크 -->
+	 <select id="checkId" parameterType="String" resultType="int">
+		SELECT COUNT(user_id)
+		FROM users
+		WHERE user_id= #{id}
+	</select>
+	
 </mapper>
